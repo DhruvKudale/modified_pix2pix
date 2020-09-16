@@ -1,1 +1,2 @@
-python train.py --dataroot=./datasets/facades --name facades_pix2pix --which_model_netG resnet_9blocks --loadSize 286 --fineSize 256 --model pix2pix --align_data --which_direction BtoA --save_epoch_freq 25
+set -ex
+python train.py --dataroot ./datasets/facades --name facades_pix2pix --model pix2pix --netG unet_256 --direction BtoA --lambda_L1 100 --dataset_mode aligned --norm batch --pool_size 0

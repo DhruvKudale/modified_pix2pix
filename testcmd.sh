@@ -1,0 +1,1 @@
+python3 test.py --dataroot /home/yash/git_projects/data --phase test  --model pix2pix --name pix2pix-deblur --num_test 30 --gpu_ids -1
