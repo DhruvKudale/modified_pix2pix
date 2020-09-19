@@ -11,7 +11,7 @@ class HTML:
      It is based on Python library 'dominate', a Python library for creating and manipulating HTML documents using a DOM API.
     """
 
-    def __init__(self, web_dir, title, refresh=0):
+    def __init__(self, web_dir, title, opt, refresh=0):
         """Initialize the HTML classes
 
         Parameters:
@@ -22,6 +22,7 @@ class HTML:
         self.title = title
         self.web_dir = web_dir
         self.img_dir = os.path.join(self.web_dir, 'images')
+        self.opt = opt
         if not os.path.exists(self.web_dir):
             os.makedirs(self.web_dir)
         if not os.path.exists(self.img_dir):
@@ -57,13 +58,22 @@ class HTML:
         self.doc.add(self.t)
         with self.t:
             with tr():
-                for im, txt, link in zip(ims, txts, links):
-                    with td(style="word-wrap: break-word;", halign="center", valign="top"):
-                        with p():
-                            with a(href=os.path.join('images', link)):
-                                img(style="width:%dpx" % width, src=os.path.join('images', im))
-                            br()
-                            p(txt)
+                if 'single' not in self.opt.phase:
+                    for im, txt, link in zip(ims, txts, links):
+                        with td(style="word-wrap: break-word;", halign="center", valign="top"):
+                            with p():
+                                with a(href=os.path.join('images', link)):
+                                    img(style="width:%dpx" % width, src=os.path.join('images', im))
+                                br()
+                                p(txt)
+                else:
+                    for im, txt, link in zip(ims, txts, links):
+                        with td(style="word-wrap: break-word;", halign="center", valign="top"):
+                            with p():
+                                with a(href=os.path.join('images', link)):
+                                    img(style="width:%dpx" % width, src=os.path.join('images', im))
+                                br()
+                                p(txt)
 
     def save(self):
         """save the current content to the HMTL file"""
